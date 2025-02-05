@@ -1,0 +1,12 @@
+{
+	"name": "AzureDataLakeStorageds",
+	"type": "Microsoft.DataFactory/factories/linkedservices",
+	"properties": {
+		"description": "access data storage with a data factory",
+		"annotations": [],
+		"type": "AzureBlobFS",
+		"typeProperties": {
+			"url": "https://damg7370gp.dfs.core.windows.net/"
+		}
+	}
+}
