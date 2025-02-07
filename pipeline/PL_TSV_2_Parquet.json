@@ -26,14 +26,14 @@
 						"type": "ParquetSource",
 						"additionalColumns": [
 							{
-								"name": "Job_Id",
+								"name": "di_job_id",
 								"value": {
 									"value": "@pipeline().RunId",
 									"type": "Expression"
 								}
 							},
 							{
-								"name": "Load_Date",
+								"name": "di_load_dt",
 								"value": {
 									"value": "@utcNow()",
 									"type": "Expression"
@@ -87,8 +87,6 @@
 			{
 				"name": "TSV_2_PARQUET",
 				"type": "Copy",
-				"state": "Inactive",
-				"onInactiveMarkAs": "Succeeded",
 				"dependsOn": [],
 				"policy": {
 					"timeout": "0.00:30:00",
@@ -101,11 +99,6 @@
 				"typeProperties": {
 					"source": {
 						"type": "DelimitedTextSource",
-						"additionalColumns": [
-							{
-								"value": "$$FILEPATH"
-							}
-						],
 						"storeSettings": {
 							"type": "AzureBlobFSReadSettings",
 							"recursive": false,
