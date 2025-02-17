@@ -19,13 +19,6 @@
 						"type": "DatasetReference"
 					},
 					"name": "SNOWFLAKESINK"
-				},
-				{
-					"dataset": {
-						"referenceName": "Parquet3",
-						"type": "DatasetReference"
-					},
-					"name": "SINKPARQUET"
 				}
 			],
 			"transformations": [
@@ -103,36 +96,7 @@
 				"          ZIP_CODE,",
 				"          DI_JOB_ID,",
 				"          DI_LOAD_DT",
-				"     )) ~> SNOWFLAKESINK",
-				"PICKREQUIREDCOLUMNS sink(allowSchemaDrift: true,",
-				"     validateSchema: false,",
-				"     input(",
-				"          ARREST_KEY as string,",
-				"          ARREST_DATE as string,",
-				"          PD_CD as string,",
-				"          PD_DESC as string,",
-				"          KY_CD as string,",
-				"          OFNS_DESC as string,",
-				"          LAW_CODE as string,",
-				"          LAW_CAT_CD as string,",
-				"          ARREST_BORO as string,",
-				"          ARREST_PRECINCT as string,",
-				"          JURISDICTION_CODE as string,",
-				"          AGE_GROUP as string,",
-				"          PERP_SEX as string,",
-				"          PERP_RACE as string,",
-				"          X_COORD_CD as string,",
-				"          Y_COORD_CD as string,",
-				"          LATITUDE as string,",
-				"          LONGITUDE as string,",
-				"          NEW_GEOREFERENCED_COLUMN as string,",
-				"          JOB_ID as string,",
-				"          LOAD_DT as string",
-				"     ),",
-				"     format: 'parquet',",
-				"     umask: 0022,",
-				"     preCommands: [],",
-				"     postCommands: []) ~> SINKPARQUET"
+				"     )) ~> SNOWFLAKESINK"
 			]
 		}
 	}
