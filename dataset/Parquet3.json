@@ -1,0 +1,113 @@
+{
+	"name": "Parquet3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureDataLakeStorage7371",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"FILENAME": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "Parquet",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobFSLocation",
+				"fileName": {
+					"value": "@dataset().FILENAME",
+					"type": "Expression"
+				},
+				"fileSystem": "silver"
+			},
+			"compressionCodec": "snappy"
+		},
+		"schema": [
+			{
+				"name": "ARREST_KEY",
+				"type": "UTF8"
+			},
+			{
+				"name": "ARREST_DATE",
+				"type": "UTF8"
+			},
+			{
+				"name": "PD_CD",
+				"type": "UTF8"
+			},
+			{
+				"name": "PD_DESC",
+				"type": "UTF8"
+			},
+			{
+				"name": "KY_CD",
+				"type": "UTF8"
+			},
+			{
+				"name": "OFNS_DESC",
+				"type": "UTF8"
+			},
+			{
+				"name": "LAW_CODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "LAW_CAT_CD",
+				"type": "UTF8"
+			},
+			{
+				"name": "ARREST_BORO",
+				"type": "UTF8"
+			},
+			{
+				"name": "ARREST_PRECINCT",
+				"type": "UTF8"
+			},
+			{
+				"name": "JURISDICTION_CODE",
+				"type": "UTF8"
+			},
+			{
+				"name": "AGE_GROUP",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERP_SEX",
+				"type": "UTF8"
+			},
+			{
+				"name": "PERP_RACE",
+				"type": "UTF8"
+			},
+			{
+				"name": "X_COORD_CD",
+				"type": "UTF8"
+			},
+			{
+				"name": "Y_COORD_CD",
+				"type": "UTF8"
+			},
+			{
+				"name": "LATITUDE",
+				"type": "UTF8"
+			},
+			{
+				"name": "LONGITUDE",
+				"type": "UTF8"
+			},
+			{
+				"name": "NEW_GEOREFERENCED_COLUMN",
+				"type": "UTF8"
+			},
+			{
+				"name": "JOB_ID",
+				"type": "UTF8"
+			},
+			{
+				"name": "LOAD_DT",
+				"type": "UTF8"
+			}
+		]
+	}
+}
