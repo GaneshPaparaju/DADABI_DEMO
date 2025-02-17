@@ -1,0 +1,45 @@
+{
+	"name": "DF_CLEAN_DATA_FROM_TSV",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText_Pet",
+						"type": "DatasetReference"
+					},
+					"name": "ReadTSVFile"
+				}
+			],
+			"sinks": [],
+			"transformations": [
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {License Issue Date} as string,",
+				"          {License Number} as string,",
+				"          {Animal's Name} as string,",
+				"          Species as string,",
+				"          {Primary Breed} as string,",
+				"          {Secondary Breed} as string,",
+				"          {ZIP Code} as integer",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> ReadTSVFile",
+				"ReadTSVFile derive(LICENSE_ISSUE_DATE = toDate({License Issue Date}, 'MMMM dd yyyy'),",
+				"          SECONDARY_BREED = iifNull({Secondary Breed}, 'Uknown'),",
+				"          ZIP_CODE = lpad(toString({ZIP Code}),5,'0'),",
+				"          SPECIES = upper(Species),",
+				"          LICENSE_NUMBER = toInteger(translate({License Number}, 'S', '')),",
+				"          ANIMALS_NAME = translate({Animal's Name}, '()[]', ''),",
+				"          DI_JOB_ID = $DI_JOB_ID,",
+				"          DI_LOAD_DT = currentDate()) ~> derivedColumn1"
+			]
+		}
+	}
+}
