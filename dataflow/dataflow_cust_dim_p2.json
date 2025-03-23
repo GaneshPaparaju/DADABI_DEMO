@@ -1,0 +1,81 @@
+{
+	"name": "dataflow_cust_dim_p2",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "cust_part_2",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "SnowflakeTableCust_dim",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "surrogateKey1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "alterRow1"
+				}
+			],
+			"scriptLines": [
+				"parameters{",
+				"     JOB_ID as string (\"PART2\")",
+				"}",
+				"source(output(",
+				"          customerid as short,",
+				"          CustomerName as string,",
+				"          billTo as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 keyGenerate(output(Cust_Sk as long),",
+				"     startAt: 69153L,",
+				"     stepValue: 1L) ~> surrogateKey1",
+				"surrogateKey1 derive(pid = $JOB_ID,",
+				"          DI_CreatedDt = currentDate()) ~> derivedColumn1",
+				"derivedColumn1 alterRow(upsertIf((!isNull(customerid)))) ~> alterRow1",
+				"alterRow1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     input(",
+				"          CUSTOMER_SK as decimal(38,0),",
+				"          CUSTOMER_ID as decimal(38,0),",
+				"          CUSTOMER_NAME as string,",
+				"          BILL_TO as string,",
+				"          DI_CREATEDDT as timestamp,",
+				"          PID as string",
+				"     ),",
+				"     deletable:false,",
+				"     insertable:true,",
+				"     updateable:true,",
+				"     upsertable:true,",
+				"     keys:['CUSTOMER_ID'],",
+				"     format: 'table',",
+				"     stageInsert: true,",
+				"     mapColumn(",
+				"          CUSTOMER_SK = Cust_Sk,",
+				"          CUSTOMER_ID = customerid,",
+				"          CUSTOMER_NAME = CustomerName,",
+				"          BILL_TO = billTo,",
+				"          DI_CREATEDDT = DI_CreatedDt,",
+				"          PID = pid",
+				"     )) ~> sink1"
+			]
+		}
+	}
+}
