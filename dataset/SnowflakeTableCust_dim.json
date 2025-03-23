@@ -1,0 +1,45 @@
+{
+	"name": "SnowflakeTableCust_dim",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Snowflake1",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "SnowflakeV2Table",
+		"schema": [
+			{
+				"name": "CUSTOMER_SK",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "CUSTOMER_ID",
+				"type": "NUMBER",
+				"precision": 38,
+				"scale": 0
+			},
+			{
+				"name": "CUSTOMER_NAME",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "BILL_TO",
+				"type": "VARCHAR"
+			},
+			{
+				"name": "DI_CREATEDDT",
+				"type": "TIMESTAMP_NTZ"
+			},
+			{
+				"name": "PID",
+				"type": "VARCHAR"
+			}
+		],
+		"typeProperties": {
+			"schema": "LATE_SCHEMA",
+			"table": "DIM_CUSTOMER"
+		}
+	}
+}
